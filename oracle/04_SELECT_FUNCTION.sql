@@ -349,7 +349,7 @@ SELECT EMP_NAME, NVL(BONUS, 0)
 FROM EMPLOYEE;
 
 -- 사원명, 보너스포함 연봉 (월급 + 월급 * 보너스) * 12 조회
-SELECT EMP_NAME "사원명",
+SELECT EMP_NAME 사원명,
 SALARY + (SALARY * NVL(BONUS, 0)) * 12 "보너스포함 연봉"
 FROM EMPLOYEE;
 
