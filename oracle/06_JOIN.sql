@@ -377,8 +377,8 @@ HAVING SUM(SALARY) >= 1000000;
 
 -- 8. 보너스를 받지 않는 직원들 중 직급 코드가 J4 또는 J7인 직원들의 직원명, 직급명, 급여를 조회
 SELECT EMP_NAME 직원명, JOB_NAME 직급명, SALARY 급여
-FROM EMPLOYEE E
-JOIN JOB J ON (E.JOB_CODE = J.JOB_CODE)
+FROM EMPLOYEE
+JOIN JOB USING (JOB_CODE)
 WHERE BONUS IS NULL AND JOB_CODE IN'(J4','J7');
 
 -- 9. 부서가 있는 직원들의 직원명, 직급명, 부서명, 근무 지역을 조회
