@@ -86,6 +86,9 @@ WHERE COUNT(DISTINCT (STUDENT_NO)) > 1;
 -- 15번 정답
 SELECT SUBSTR(TERM_NO, 1, 4) 년도, 
        SUBSTR(TERM_NO, -1, 2) 학기, 
-       AVG(POINT) 평균
+       CASE 
+       WHEN SUBSTR(TERM_NO, -1, 2) = '01' THEN POINT
+       WHEN 
+      ELSE AVG(POINT) 평균
 FROM TB_GRADE
 GROUP BY SUBSTR(TERM_NO, 1, 4);
