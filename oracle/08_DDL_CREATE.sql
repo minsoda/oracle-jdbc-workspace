@@ -363,7 +363,7 @@
  -- 데이터 삭제 : DELETE FROM 테이블명 WHERE 조건;
  
  --> MEM_GRADE 테이블에서 10번 등급 삭제!
- DELETE FROM MEM_GRADE WHERE GRADE_CODE = 10; -- 삭제안됨!
+ DELETE FROM MEM_GRADE WHERE GRADE_CODE = 10; 
  
  DELETE FORM MEM_GRADE WHERE GRADE_CODE = 30;
  --> 자식테이블이 이미 사용하고 있는 값이 있을 경우 부모테이블로부터 무조건 삭제가 안되는 "삭제제한" 옵션이 걸려있음
