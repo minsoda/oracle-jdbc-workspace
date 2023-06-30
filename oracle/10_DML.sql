@@ -1,5 +1,5 @@
  /*
-    DNL(Data Mainpulation Language)
+    DML(Data Mainpulation Language)
     : 데이터 조작 언어로 테이블에 값을 삽입(INSERT) 하거나, 수정(UPDATE)하거나, 삭제(DELETE)하는 구문이다.
     
     INSERT
