@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import config.ServerInfo;
 
 public class DBConnectionTest3 {
-	
+	 
 	/*
 	 * 디비 서버에 대한 정보가 프로그램상에 하드코딩 되어져있음!
 	 * --> 해결책 : 별도의 모듈에 디비서버에 대한 정보를 뽑아내서 별도 처리

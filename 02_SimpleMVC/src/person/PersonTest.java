@@ -58,29 +58,66 @@ public class PersonTest {
 		
 	}
 	
-	public void removePerson(int id) throws ClassNotFoundException, SQLException  {
+	public void removePerson(int id) throws SQLException  {
 	
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("removePerson"));
+		st.setInt(1, id);
 		
+		int result = st.executeUpdate();
+		System.out.println(result + "명 삭제!");
+
+		ResultSet rs = st.executeQuery();
 		
+		closeAll(conn, st);
+	
+	}
+	
+	public void updatePerson(int id, String address) throws SQLException {
+		
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("updatePerson"));
+		st.setInt(2, id);
+		st.setString(1, address);
+		
+		int result = st.executeUpdate();
+		System.out.println(result + "명 수정!");
+		
+		ResultSet rs = st.executeQuery();
+		
+		closeAll(conn, st, rs);
 	}
 	
 	
-	public void updatePerson(int id, String address) throws ClassNotFoundException, SQLException {
+	public void searchAllPerson(int id) throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("searchAllPerson"));
 		
-	
+		st.setInt(1, id);
 		
+		int result = st.executeUpdate();
+		System.out.println(result + "명을 찾았습니다!");
+		
+		ResultSet rs = st.executeQuery();
+		
+		closeAll(conn, st, rs);
 	}
 	
 	
-	public void searchAllPerson() {
+	public void viewPerson() throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("viewPerson"));
 		
+		ResultSet rs = st.executeQuery();
 		
-	}
+		while(rs.next()) {
+			String id = rs.getString("ID");
+			String name = rs.getString("Name");
+			String address = rs.getString("ADDRESS");
+			
+			System.out.println(id + " / " + name + " / " + address);
+		}
 	
-	
-	public void viewPerson(int id) {
-		
-		
 	}
 	
 	
@@ -94,17 +131,17 @@ public class PersonTest {
 			
 			System.out.println("Driver Loading...");
 			
-			pt.addPerson("김강우", "서울");
-			pt.addPerson("고아라", "제주도");
-			pt.addPerson("강태주", "경기도");
+//			pt.addPerson("김강우", "서울");
+//			pt.addPerson("고아라", "제주도");
+//			pt.addPerson("강태주", "경기도");
 			
-			pt.searchAllPerson();
+			pt.searchAllPerson(7);
 			
-			pt.removePerson(1); // 강태주 삭제
+//			pt.removePerson(4); // 강태주 삭제
 			
-			pt.updatePerson(1, "제주도");
+//			pt.updatePerson(5, "서울"); 
 			
-			pt.viewPerson(1);
+//			pt.viewPerson();
 			
 			
 		} catch (ClassNotFoundException e) {

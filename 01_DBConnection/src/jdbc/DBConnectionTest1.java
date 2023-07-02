@@ -36,6 +36,7 @@ public class DBConnectionTest1 {
 			// 4. 쿼리문 실행
 			ResultSet rs = st.executeQuery();
 			
+			
 			while(rs.next()) {
 				String empId = rs.getString("emp_id"); // 컬럼명 명시, SQL 데이터형이랑 상관없음
 				String empName = rs.getString("emp_name");
