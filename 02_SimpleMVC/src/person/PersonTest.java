@@ -44,8 +44,10 @@ public class PersonTest {
 
 	// 변동적인 반복.. 비즈니스 로직.. DAO(Database Access Object)
 	public void addPerson(String name, String address) throws SQLException  {
+		
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("addPerson"));
+		
 		st.setString(1, name);
 		st.setString(2, address);
 		
@@ -60,62 +62,63 @@ public class PersonTest {
 	
 	public void removePerson(int id) throws SQLException  {
 	
-		Connection conn = getConnect();
+		Connection conn = getConnect(); //데이터베이스 연결함
 		PreparedStatement st = conn.prepareStatement(p.getProperty("removePerson"));
+		
 		st.setInt(1, id);
 		
 		int result = st.executeUpdate();
-		System.out.println(result + "명 삭제!");
-
-		ResultSet rs = st.executeQuery();
 		
 		closeAll(conn, st);
 	
+		System.out.println(result + "삭제 완룡");
 	}
+	
+	
 	
 	public void updatePerson(int id, String address) throws SQLException {
 		
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("updatePerson"));
-		st.setInt(2, id);
 		st.setString(1, address);
+		st.setInt(2, id);
 		
 		int result = st.executeUpdate();
-		System.out.println(result + "명 수정!");
+	
 		
-		ResultSet rs = st.executeQuery();
+		closeAll(conn, st);
 		
-		closeAll(conn, st, rs);
+		System.out.println(result + "수정완료");
 	}
 	
 	
-	public void searchAllPerson(int id) throws SQLException {
+	
+	public void searchAllPerson() throws SQLException {
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("searchAllPerson"));
-		
-		st.setInt(1, id);
-		
-		int result = st.executeUpdate();
-		System.out.println(result + "명을 찾았습니다!");
-		
-		ResultSet rs = st.executeQuery();
-		
-		closeAll(conn, st, rs);
-	}
 	
-	
-	public void viewPerson() throws SQLException {
-		Connection conn = getConnect();
-		PreparedStatement st = conn.prepareStatement(p.getProperty("viewPerson"));
 		
 		ResultSet rs = st.executeQuery();
 		
 		while(rs.next()) {
-			String id = rs.getString("ID");
-			String name = rs.getString("Name");
-			String address = rs.getString("ADDRESS");
-			
-			System.out.println(id + " / " + name + " / " + address);
+			System.out.println(rs.getString("name") + " , " + rs.getString("address"));
+		}
+		
+
+		closeAll(conn, st, rs);
+	}
+	
+	
+	public void viewPerson(int id) throws SQLException {
+		Connection conn = getConnect();
+		PreparedStatement st = conn.prepareStatement(p.getProperty("viewPerson"));
+		
+		
+		st.setInt(1, id);
+		
+		ResultSet rs = st.executeQuery();
+		if(rs.next()) {
+			System.out.println(rs.getString("name") + " , " + rs.getString("address"));
 		}
 	
 	}
@@ -135,13 +138,15 @@ public class PersonTest {
 //			pt.addPerson("고아라", "제주도");
 //			pt.addPerson("강태주", "경기도");
 			
-			pt.searchAllPerson(7);
+//			pt.searchAllPerson();
 			
-//			pt.removePerson(4); // 강태주 삭제
 			
-//			pt.updatePerson(5, "서울"); 
+//			pt.removePerson(5); // 강태주 삭제
+
+
+			pt.updatePerson(21, "서울"); 
 			
-//			pt.viewPerson();
+//			pt.viewPerson(20);
 			
 			
 		} catch (ClassNotFoundException e) {
