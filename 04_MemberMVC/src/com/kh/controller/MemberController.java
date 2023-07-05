@@ -20,7 +20,8 @@ public class MemberController {
 		
 			try {
 				if(dao.getMember(m.getId()) == null) {
-				dao.registerMember(new Member(m.getId(), m.getPassword(), m.getName()));
+//					dao.registerMember(new Member(m.getId(), m.getPassword(), m.getName()));
+					dao.registerMember(m);
 				return true;
 				}
 			} catch (SQLException e) {
@@ -55,18 +56,19 @@ public class MemberController {
 		// 비밀번호 변경 후 true 반환, 아니라면 false 반환
 		Member m = new Member();
 		m.setId(id);
-		m.setPassword(oldPw);
+		m.setPassword(oldPw); // 로그인할 패스워드
 		
 		
-		if(login(id, oldPw) != null) {
+//		if(login(id, oldPw) != null) {
 				try {
-					dao.updatePassword(new Member(m.getId(),newPw,m.getName()));
+					if(dao.login(m) != null) {
+						m.setPassword(newPw);
+						dao.updatePassword(m);
+//					dao.updatePassword(new Member(m.getId(),newPw,m.getName()));
+						return true;
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
-				
-				return true;
-				
 		}
 		return false;
 	}
@@ -79,7 +81,9 @@ public class MemberController {
 		m.setName(name);
 		
 		try {
-			dao.updateName(new Member(m.getId(), m.getPassword(), name)); 
+		
+			dao.updateName(m);
+//			dao.updateName(new Member(m.getId(), m.getPassword(), name)); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
