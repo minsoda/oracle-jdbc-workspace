@@ -10,9 +10,14 @@ public class Rent {
 	private Date rentDate;
 	
 	public Rent() {}
+	
+	public Rent(Member member, Book book) {
+		this.member = member;
+		this.book = book;
+	}
+	
 
 	public Rent(int rentNo, Member member, Book book, Date rentDate) {
-		super();
 		this.rentNo = rentNo;
 		this.member = member;
 		this.book = book;

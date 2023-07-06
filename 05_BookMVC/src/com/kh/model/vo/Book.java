@@ -6,20 +6,26 @@ public class Book {
 	private int bkNo;
 	private String bkTitle;
 	private String bkAuthor;
+
+
+	public Book() {}
+	
+	public Book(int no) {
+		this.bkNo = no;
+	}
 	
 	public Book(String title, String author) {
-	}
-
-	public Book() {
+		this.bkTitle = title;
+		this.bkAuthor = author;
 		
 	}
 
 	public Book(int bkNo, String bkTitle, String bkAuthor) {
-		super();
 		this.bkNo = bkNo;
 		this.bkTitle = bkTitle;
 		this.bkAuthor = bkAuthor;
 	}
+	
 
 	public int getBkNo() {
 		return bkNo;

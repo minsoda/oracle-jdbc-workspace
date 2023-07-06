@@ -50,8 +50,8 @@ public class BookDAO implements BookDAOTemplate{
 
 	@Override
 	public void closeAll(ResultSet rs, PreparedStatement st, Connection conn) throws SQLException {
-		closeAll(st, conn); 
 		rs.close();
+		closeAll(st, conn); 
 		
 	}
 
@@ -63,13 +63,13 @@ public class BookDAO implements BookDAOTemplate{
 		
 		
 		ResultSet rs = st.executeQuery();
-		ArrayList<Book> book = null;
+		ArrayList<Book> bookList = new ArrayList<>();
 		
 		while(rs.next()) {
-			book.add(new Book(rs.getString("bk_title") , rs.getString("bk_author")));
+			bookList.add(new Book(rs.getInt("bk_no"), rs.getString("bk_title") , rs.getString("bk_author")));
 		}
-		
-		return book;
+		closeAll(rs, st, conn);
+		return bookList;
 	}
 
 	@Override
@@ -82,11 +82,11 @@ public class BookDAO implements BookDAOTemplate{
 		st.setString(1, book.getBkTitle());
 		st.setString(2, book.getBkAuthor());
 		
-		st.executeUpdate();
+		int result = st.executeUpdate();
 		
 		closeAll(st, conn);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -96,11 +96,11 @@ public class BookDAO implements BookDAOTemplate{
 		
 		st.setInt(1, no);
 		
-		st.executeUpdate();
+		int result = st.executeUpdate();
 		
 		closeAll(st, conn);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -112,10 +112,10 @@ public class BookDAO implements BookDAOTemplate{
 		st.setString(2, member.getMemberPwd());
 		st.setString(3, member.getMemberName());
 		
-		st.executeUpdate();
+		int result = st.executeUpdate();
 		closeAll(st, conn);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -128,12 +128,20 @@ public class BookDAO implements BookDAOTemplate{
 		st.setString(2, password);
 		ResultSet rs = st.executeQuery();
 		
+		Member member = null;// member로 가져오고 싶당!,어플리케이션에 null !=  때문에
+		
 		if(rs.next()) {
-			System.out.println(rs.getString("memberId") + " / " + rs.getString("memberPwd"));
+			member = new Member();
+			member.setMemberNo(rs.getInt("member_no"));
+			member.setMemberId(rs.getString("member_id"));
+			member.setMemberPwd(rs.getString("member_pwd"));
+			member.setMemberName(rs.getString("member_name"));
+			member.setStatus(rs.getString("status").charAt(0));
+			member.setEnrollDate(rs.getDate("enroll_date"));
 		}
 		closeAll(rs, st, conn);
 		
-		return null;
+		return member;
 	}
 
 	@Override
@@ -145,11 +153,11 @@ public class BookDAO implements BookDAOTemplate{
 		
 		st.setString(1, id);
 		st.setString(2, password);
-		st.executeUpdate();
+		int result = st.executeUpdate();
 		
 		closeAll(st, conn);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -157,8 +165,13 @@ public class BookDAO implements BookDAOTemplate{
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("rentBook"));
 		
-		st.setInt(1, rent.getRentNo());
-		return 0;
+		st.setInt(1, rent.getMember().getMemberNo());
+		st.setInt(2, rent.getBook().getBkNo());
+		int result = st.executeUpdate();
+		
+		closeAll(st,conn);
+		
+		return result;
 	}
 
 	@Override
@@ -167,10 +180,11 @@ public class BookDAO implements BookDAOTemplate{
 		PreparedStatement st = conn.prepareStatement(p.getProperty("deleteRent"));
 		
 		st.setInt(1, no);
-		st.executeUpdate();
+		int result = st.executeUpdate();
+		
 		closeAll(st,conn);
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -186,16 +200,19 @@ public class BookDAO implements BookDAOTemplate{
 		PreparedStatement st = conn.prepareStatement(p.getProperty("printRentBook"));
 		
 		st.setString(1, id);
-		st.executeQuery();
-		
 		ResultSet rs = st.executeQuery();
 		
-		Rent rent = new Rent();
+		ArrayList<Rent> rentList = new ArrayList<>();
 		
-		while(rs.next())
-		rent.setBook(new Book(rs.getString("bk_title"),  rs.getString("bk_author")));
-		
-		return null;
+		while(rs.next()){
+			Rent rent = new Rent();
+			rent.setRentNo(rs.getInt("rent_no"));
+			rent.setRentDate(rs.getDate("rent_date"));
+			rent.setBook(new Book(rs.getString("bk_title"),  rs.getString("bk_author")));
+			rentList.add(rent);
+		}
+		closeAll(rs, st, conn);
+		return rentList;
 	}
 
 }

@@ -13,12 +13,22 @@ public class Member {
 	private Date enrollDate;
 	
 	
+	public Member() {
+		
+	}
+	
 	public Member(String id, String password, String name) {
+		this.memberId = id;
+		this.memberPwd = password;
+		this.memberName = name;
 	
 	}
 
 
-	public Member() {}
+	public Member(int memberNo) {
+		this.memberNo = memberNo;
+		
+	}
 
 
 	public Member(int memberNo, String memberId, String memberPwd, String memberName, char status, Date enrollDate) {
