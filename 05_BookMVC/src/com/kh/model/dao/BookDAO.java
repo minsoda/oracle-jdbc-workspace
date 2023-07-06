@@ -41,7 +41,7 @@ public class BookDAO implements BookDAOTemplate{
 		return conn;
 	}
 
-	@Override
+	@Override // 커밋을 해줘야 변경된 정보를 보기떄문에 닫아줘야함. select는 조회이기때문에 크게 상관이 없다.
 	public void closeAll(PreparedStatement st, Connection conn) throws SQLException {
 		st.close();
 		conn.close();
@@ -62,10 +62,10 @@ public class BookDAO implements BookDAOTemplate{
 		PreparedStatement st = conn.prepareStatement(p.getProperty("printBookAll"));
 		
 		
-		ResultSet rs = st.executeQuery();
+		ResultSet rs = st.executeQuery(); // 한줄씩
 		ArrayList<Book> bookList = new ArrayList<>();
 		
-		while(rs.next()) {
+		while(rs.next()) { //행의 반복
 			bookList.add(new Book(rs.getInt("bk_no"), rs.getString("bk_title") , rs.getString("bk_author")));
 		}
 		closeAll(rs, st, conn);
@@ -120,7 +120,7 @@ public class BookDAO implements BookDAOTemplate{
 
 	@Override
 	public Member login(String id, String password) throws SQLException {
-		
+		// 아이디,비번을 받아 -> 디비로 가서 조회가 되고 -> 조회된 값이 멤버의 객체에 담긴다.
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("login"));
 		
@@ -129,9 +129,10 @@ public class BookDAO implements BookDAOTemplate{
 		ResultSet rs = st.executeQuery();
 		
 		Member member = null;// member로 가져오고 싶당!,어플리케이션에 null !=  때문에
+		// if 문이 없을떄 null로 하기 위해서 
 		
-		if(rs.next()) {
-			member = new Member();
+		if(rs.next()) { // 결과값이기 떄문에 전부 작성되면 좋다!
+			member = new Member(); //if문에서 set으로 변경된걸로 나오기 위해서
 			member.setMemberNo(rs.getInt("member_no"));
 			member.setMemberId(rs.getString("member_id"));
 			member.setMemberPwd(rs.getString("member_pwd"));
@@ -165,7 +166,7 @@ public class BookDAO implements BookDAOTemplate{
 		Connection conn = getConnect();
 		PreparedStatement st = conn.prepareStatement(p.getProperty("rentBook"));
 		
-		st.setInt(1, rent.getMember().getMemberNo());
+		st.setInt(1, rent.getMember().getMemberNo()); // rent에 member 객체로 부터 no가져옴
 		st.setInt(2, rent.getBook().getBkNo());
 		int result = st.executeUpdate();
 		
@@ -202,15 +203,16 @@ public class BookDAO implements BookDAOTemplate{
 		st.setString(1, id);
 		ResultSet rs = st.executeQuery();
 		
-		ArrayList<Rent> rentList = new ArrayList<>();
+		ArrayList<Rent> rentList = new ArrayList<>(); // 인터페이스라서 null로 로그인처럼 생성불가!
 		
 		while(rs.next()){
-			Rent rent = new Rent();
+			Rent rent = new Rent(); // ArrayList<Rent> 니까 rent의 객체 생성!
 			rent.setRentNo(rs.getInt("rent_no"));
 			rent.setRentDate(rs.getDate("rent_date"));
 			rent.setBook(new Book(rs.getString("bk_title"),  rs.getString("bk_author")));
-			rentList.add(rent);
+			rentList.add(rent); // null로 하면 에러. 
 		}
+		// Rent rent = new Rent(no, date, book)~~~ : 생성자 생성후 사용 가능!
 		closeAll(rs, st, conn);
 		return rentList;
 	}

@@ -19,7 +19,7 @@
     > ROW TRIGGER(행 트리거) : 해당 SQL문 실행할 때마다 매번 트리거 실행
                             (FOR EACH ROW 옵션 기술해야함)
     > :OLD - BEFROE UPDATE(수정전 자료), BEFORE DELETE(삭제전 자료)
-    > :NEW - AFER INSERT(추가된 자료), AFTER UPDATE(수정한 후 자료)
+    > :NEW - AFTER INSERT(추가된 자료), AFTER UPDATE(수정한 후 자료)
     
     * 트리거 생성
     [표현식]
