@@ -53,7 +53,8 @@ public class ChannelDAO implements ChannelDAOTemplate {
 		PreparedStatement st = conn.prepareStatement(p.getProperty("addChannel"));
 		
 		st.setString(1, channel.getChannelName());
-		st.setString(2, channel.getMember().getMemberId());
+		st.setString(2, channel.getChannelPhoto());
+		st.setString(3, channel.getMember().getMemberId());
 		
 		int result = st.executeUpdate();
 		closeAll(st, conn);
@@ -70,7 +71,6 @@ public class ChannelDAO implements ChannelDAOTemplate {
 		
 		int result = st.executeUpdate();
 		closeAll(st, conn);
-		
 		return result;
 	}
 
@@ -100,7 +100,7 @@ public class ChannelDAO implements ChannelDAOTemplate {
 			channel.setChannelCode(rs.getInt("channel_code"));
 			channel.setChannelName(rs.getString("channel_name"));
 			Member member = new Member();
-			member.setMemberNickName(rs.getString("member_nickname"));
+			member.setMemberNickname(rs.getString("member_nickname"));
 			channel.setMember(member);
 		}
 		closeAll(st, conn);

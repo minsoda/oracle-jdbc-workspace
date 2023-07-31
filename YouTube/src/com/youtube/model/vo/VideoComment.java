@@ -3,30 +3,30 @@ package com.youtube.model.vo;
 import java.util.Date;
 
 public class VideoComment {
-
-	private int commnetCode;
+	private int commentCode;
 	private String commentDesc;
 	private Date commentDate;
 	private int commentParent;
+	
 	private Video video;
 	private Member member;
 	
 	public VideoComment() {}
-	
-	public VideoComment(int commnetCode, String commentDesc, Date commentDate, int commentParent, Video video,
+	public VideoComment(int commentCode, String commentDesc, Date commentDate, int commentParent, Video video,
 			Member member) {
-		this.commnetCode = commnetCode;
+		this.commentCode = commentCode;
 		this.commentDesc = commentDesc;
 		this.commentDate = commentDate;
 		this.commentParent = commentParent;
 		this.video = video;
 		this.member = member;
 	}
-	public int getCommnetCode() {
-		return commnetCode;
+	
+	public int getCommentCode() {
+		return commentCode;
 	}
-	public void setCommnetCode(int commnetCode) {
-		this.commnetCode = commnetCode;
+	public void setCommentCode(int commentCode) {
+		this.commentCode = commentCode;
 	}
 	public String getCommentDesc() {
 		return commentDesc;
@@ -58,12 +58,10 @@ public class VideoComment {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	
 	@Override
 	public String toString() {
-		return "VideoComment [commnetCode=" + commnetCode + ", commentDesc=" + commentDesc + ", commentDate="
+		return "VideoComment [commentCode=" + commentCode + ", commentDesc=" + commentDesc + ", commentDate="
 				+ commentDate + ", commentParent=" + commentParent + ", video=" + video + ", member=" + member + "]";
 	}
-	
-	
-	
 }

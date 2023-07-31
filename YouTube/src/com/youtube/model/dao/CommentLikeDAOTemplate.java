@@ -16,32 +16,25 @@ public interface CommentLikeDAOTemplate {
 	void closeAll(PreparedStatement st, Connection conn) throws SQLException;
 	void closeAll(ResultSet rs, PreparedStatement st, Connection conn) throws SQLException;
 	
-	// delete - pk를 가져옴
-	// 가지고 올게 많을때에는 하나를 가져와서 담아야하니까
-	// CommentLike, VideoComment, VideoLkie
+	// CommentLike, VideoComment, VideoLike
 	
 	// VideoLike
 	// 좋아요 추가, 좋아요 취소
 	int addLike(VideoLike like) throws SQLException;
-	int deleteLike(int likeCode) throws SQLException;
-	
-	
+	int deleteLike(VideoLike like) throws SQLException;
 	
 	// VideoComment
-	//댓글 추가, 수정, 삭제, 비디오 1개 보기에 따른 댓글들 보기
-	
+	// 댓글 추가, 수정, 삭제
 	int addComment(VideoComment comment) throws SQLException;
 	int updateComment(VideoComment comment) throws SQLException;
-	int deleteComment(int CommentCode) throws SQLException;
-	ArrayList<VideoComment> videoCommentList(int videoCode) throws SQLException; 
+	int deleteComment(int commentCode) throws SQLException;
 	
+	// 비디오 1개 보기에 따른 댓글들 보기 (좋아요 포함)
+	ArrayList<CommentLike> videoCommentList(int videoCode) throws SQLException;
 	
 	// CommentLike
 	// 댓글 좋아요 추가, 댓글 좋아요 취소
-	
 	int addCommentLike(CommentLike like) throws SQLException;
 	int deleteCommentLike(int likeCode) throws SQLException;
-	
-	
 	
 }

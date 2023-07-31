@@ -1,32 +1,26 @@
 package com.youtube.model.vo;
 
 public class Member {
-	
 	private String memberId;
 	private String memberPassword;
-	private String memberNickName;
+	private String memberNickname;
 	private String memberEmail;
 	private String memberPhone;
 	private char memberGender;
 	private String memberAuthority;
 	
 	public Member() {}
-	
-	public Member(String id, String password) {
-		this.memberId = id;
-		this.memberPassword = password;
-	}
-	
-	public Member(String memberId, String memberPassword, String memberNickName, String memberEmail, String memberPhone,
+	public Member(String memberId, String memberPassword, String memberNickname, String memberEmail, String memberPhone,
 			char memberGender, String memberAuthority) {
 		this.memberId = memberId;
 		this.memberPassword = memberPassword;
-		this.memberNickName = memberNickName;
+		this.memberNickname = memberNickname;
 		this.memberEmail = memberEmail;
 		this.memberPhone = memberPhone;
 		this.memberGender = memberGender;
 		this.memberAuthority = memberAuthority;
 	}
+	
 	public String getMemberId() {
 		return memberId;
 	}
@@ -39,11 +33,11 @@ public class Member {
 	public void setMemberPassword(String memberPassword) {
 		this.memberPassword = memberPassword;
 	}
-	public String getMemberNickName() {
-		return memberNickName;
+	public String getMemberNickname() {
+		return memberNickname;
 	}
-	public void setMemberNickName(String memberNickName) {
-		this.memberNickName = memberNickName;
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
 	}
 	public String getMemberEmail() {
 		return memberEmail;
@@ -71,12 +65,8 @@ public class Member {
 	}
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberNickName="
-				+ memberNickName + ", memberEmail=" + memberEmail + ", memberPhone=" + memberPhone + ", memberGender="
+		return "Member [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberNickname="
+				+ memberNickname + ", memberEmail=" + memberEmail + ", memberPhone=" + memberPhone + ", memberGender="
 				+ memberGender + ", memberAuthority=" + memberAuthority + "]";
-	}	
-	
-	
-	
-	
+	}
 }

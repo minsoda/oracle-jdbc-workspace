@@ -3,19 +3,19 @@ package com.youtube.model.vo;
 import java.util.Date;
 
 public class CommentLike {
-	
+
 	private int commLikeCode;
 	private Date commLikeDate;
-	private VideoComment videocomment;
+	
+	private VideoComment comment;
 	private Member member;
 	
-	public CommentLike() {
-	}
+	public CommentLike() {}
 
-	public CommentLike(int commLikeCode, Date commLikeDate, VideoComment videocomment, Member member) {
+	public CommentLike(int commLikeCode, Date commLikeDate, VideoComment comment, Member member) {
 		this.commLikeCode = commLikeCode;
 		this.commLikeDate = commLikeDate;
-		this.videocomment = videocomment;
+		this.comment = comment;
 		this.member = member;
 	}
 
@@ -35,12 +35,12 @@ public class CommentLike {
 		this.commLikeDate = commLikeDate;
 	}
 
-	public VideoComment getVideocomment() {
-		return videocomment;
+	public VideoComment getComment() {
+		return comment;
 	}
 
-	public void setVideocomment(VideoComment videocomment) {
-		this.videocomment = videocomment;
+	public void setComment(VideoComment comment) {
+		this.comment = comment;
 	}
 
 	public Member getMember() {
@@ -53,11 +53,8 @@ public class CommentLike {
 
 	@Override
 	public String toString() {
-		return "CommentLike [commLikeCode=" + commLikeCode + ", commLikeDate=" + commLikeDate + ", videocomment="
-				+ videocomment + ", member=" + member + "]";
+		return "CommentLike [commLikeCode=" + commLikeCode + ", commLikeDate=" + commLikeDate + ", comment=" + comment
+				+ ", member=" + member + "]";
 	}
-	
-	
-	
-	
+
 }
